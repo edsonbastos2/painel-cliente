@@ -1,12 +1,12 @@
 "use client"
 
 import { api } from "@/libs/api"
-import { Alert, Box, Button, Link as MuiLink, TextField, Typography } from "@mui/material"
-import Link from "next/link"
+import { Alert, Box, Button, TextField, Typography } from "@mui/material"
 import { FormEvent, useState } from "react"
 
 const Page = () => {
 
+    const [info, setInfo] = useState('')
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const [emailField, setEmailField] = useState('')
@@ -15,17 +15,20 @@ const Page = () => {
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
-        if(!emailField || !passwordField) {
-            setError('Preencha o e-mail e senha')
+        if(!emailField) {
+            setError('Preencha o e-mail')
             return
         }
 
         setError('')
         setLoading(true)
-        const result = await api.login(emailField, passwordField)
+        setInfo('')
+        const result = await api.forgotPassword(emailField)
         setLoading(false)
         if(result.error) {
             setError(result.error)
+        } else {
+            setInfo('Enviamos um e-mail para redefinir sua senha.')
         }
     }
 
@@ -37,7 +40,7 @@ const Page = () => {
             >Digite suas credenciais para entrar no painel administrativo</Typography>
 
             <Box component="form" onSubmit={handleSubmit} sx={{width: '100%'}}>
-                <Box sx={{ display: 'flex', flexDirection:'column', gap:2}}>
+                <Box sx={{ display: 'flex', flexDirection:'column', mb:3}}>
                     <TextField
                         label="Digite seu e-mail"
                         name="email"
@@ -47,16 +50,6 @@ const Page = () => {
                         value={emailField}
                         disabled={loading}
                     />
-                    <TextField
-                        label="Digite sua senha"
-                        name="password"
-                        type="password"
-                        fullWidth
-                        sx={{ mb:3}}
-                        onChange={e => setPasswordField(e.target.value)}
-                        value={passwordField}
-                        disabled={loading}
-                    />
                 </Box>
                 <Button
                     type="submit"
@@ -64,16 +57,17 @@ const Page = () => {
                     fullWidth
                     disabled={loading}
                 >
-                    { loading ? 'Carregando...' : 'Entrar'}
+                    { loading ? 'Carregando...' : 'Recuperar senha'}
                 </Button>
 
                 { error &&
-                    <Alert variant="filled" severity="error" sx={{mt:2}}>{error}</Alert>
+                    <Alert variant="standard" severity="error" sx={{mt:2}}>{error}</Alert>
                 }
 
-                <Box sx={{mt:3}}>
-                    <MuiLink href="/login/forgot" variant="body2" component={Link}>Esqueceu sua senha?</MuiLink>
-                </Box>
+                { info &&
+                    <Alert variant="standard" severity="info" sx={{mt:2}}>{info}</Alert>
+                }
+
             </Box>
         </>
     )
