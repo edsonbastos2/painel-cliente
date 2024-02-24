@@ -31,7 +31,7 @@ export const api = {
         })
     },
 
-    redefinePassword: (password: string):Promise<{error:string, token?:string}> => {
+    redefinePassword: (password: string, token?: string):Promise<{error:string, token?:string}> => {
 
         return new Promise( resolve => {
             setTimeout(() => {
