@@ -2,12 +2,18 @@ import { AppBar, Box, Button, IconButton, Toolbar, Typography } from "@mui/mater
 import { Menu } from '@mui/icons-material'
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { HeaderDrawer } from "./HeaderDrawer"
+import { useState } from "react"
 
 const Header = () => {
     const pagetitle = 'Painel Administrativo'
     const router = useRouter()
 
-    const handleDrawerToggle = () => {}
+    const [drawerOpen, setDrawerOpen] = useState(false)
+
+    const handleDrawerToggle = () => {
+        setDrawerOpen(!drawerOpen)
+    }
 
     const handleLogout = () => {
         router.push('/login')
@@ -52,6 +58,14 @@ const Header = () => {
                     </Box>
                 </Toolbar>
             </AppBar>
+            <Box component="nav">
+                <HeaderDrawer
+                    open={drawerOpen}
+                    onClose={handleDrawerToggle}
+                    title={pagetitle}
+                    onLogout={handleLogout}
+                />
+            </Box>
         </>
     )
 }
