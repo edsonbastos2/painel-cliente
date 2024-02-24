@@ -6,11 +6,9 @@ import { FormEvent, useState } from "react"
 const Page = () => {
 
     return(
-        <>
-            <Box>
-                <Typography variant="body1" >Página de pedidos</Typography>
-            </Box>
-        </>
+        <Box sx={{ my: 3}}>
+            <Typography variant="body1" >Página de pedidos</Typography>
+        </Box>
     )
 }
 
