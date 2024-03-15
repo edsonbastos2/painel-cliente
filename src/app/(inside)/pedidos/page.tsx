@@ -1,17 +1,57 @@
 "use client"
 
+import { OrderItem } from "@/components/OrderItem"
+import { api } from "@/libs/api"
+import { Order } from "@/types/Order"
+import { OrderStatus } from "@/types/OrderStatus"
 import { Refresh, Search } from "@mui/icons-material"
 import { Alert, Box, Button, ButtonBase, CircularProgress, Grid, InputAdornment, Skeleton, TextField, Typography } from "@mui/material"
-import { FormEvent, useState } from "react"
+import { FormEvent, KeyboardEvent, useEffect, useState } from "react"
 
 const Page = () => {
 
     const [searchInput, setSearchinput] = useState('')
+    const [mensage, setMensage] = useState('')
     const [loading, setLoading] = useState(false)
-    const handleChangeInput = () => {
-        setSearchinput(searchInput)
+    const [orders, setOrders] = useState<Order[]>([])
+    const [filteredOrders, setFilteredOrders] = useState<Order[]>([])
+
+    const getOrders = async() => {
+        setSearchinput('')
+        setOrders([])
+
+        setLoading(true)
+        const orders:Order[] = await api.getOrders()
+        setOrders(orders)
+        setLoading(false)
     }
-    const handleKeyup = () => {}
+
+    useEffect(() => {
+        getOrders()
+    },[])
+
+
+    useEffect(() => {
+        setSearchinput('')
+        setFilteredOrders(orders)
+    },[orders])
+
+    const handleKeyup = (event: KeyboardEvent<HTMLInputElement>) => {
+        if(event.code.toLowerCase() === 'enter') {
+            if(searchInput !== '') {
+                let newOrders = orders.filter((item) => item.id.toString() === searchInput )
+                setFilteredOrders(newOrders)
+            } else {
+                setFilteredOrders(orders)
+            }
+        }
+    }
+
+    const handleChangestatus = async(id: number, status:OrderStatus) => {
+        const newStatus = await api.changeOrderstatus(id, status)
+        getOrders()
+    }
+    
 
     return(
         <Box sx={{ my: 3}}>
@@ -31,6 +71,7 @@ const Page = () => {
                         <Button
                             size="small"
                             sx={{ paddingY:0, justifyContent:{xs: 'flex-start', md:'center'}}}
+                            onClick={getOrders}
                         >
                             <Refresh/>
                             <Typography
@@ -45,7 +86,7 @@ const Page = () => {
 
                 <TextField
                     value={searchInput}
-                    onChange={handleChangeInput}
+                    onChange={e => setSearchinput(e.target.value)}
                     onKeyUp={handleKeyup}
                     placeholder="Pesquisar pedido"
                     InputProps={{
@@ -78,6 +119,17 @@ const Page = () => {
                             <Skeleton variant="rectangular" height={220}/>
                         </Grid>
                     </>
+                }
+
+                {!loading &&  filteredOrders.map((item, index) =>(
+                    <Grid key={index} item xs={1}>
+
+                        <OrderItem
+                            item={item}
+                            onChangeStatus={handleChangestatus}
+                        />
+                    </Grid>
+                ))
                 }
             </Grid>
         </Box>

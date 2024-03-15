@@ -71,7 +71,7 @@ export const api = {
                     orders.push({
                         id: parseInt('22' + i),
                         status: status[Math.floor(Math.random() * 3)],
-                        orderDate:'2023-02-12',
+                        orderDate:'2023-02-12 19:30',
                         userId: '1',
                         userName: 'Pedro',
                         shippingAddress: {
@@ -109,5 +109,9 @@ export const api = {
                 resolve(orders)
             }, 1000)
         })
+    },
+
+    changeOrderstatus: async(id:number, status: OrderStatus) => {
+        return true
     }
 }
