@@ -10,7 +10,7 @@ export type Order = {
     userName?: string
     shippingAddress: Address
     shippingPrice: number
-    paymentType: 'cash' | 'money'
+    paymentType: 'cash' | 'card'
     changeValue?: number
     cupom?: string
     cupomDiscount?: number

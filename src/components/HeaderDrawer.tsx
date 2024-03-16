@@ -17,6 +17,7 @@ export const HeaderDrawer = ({open, onLogout, onClose, title}:Props) => {
             onClose={onClose}
             ModalProps={{ keepMounted: true }}
             sx={{
+                displayPrint:'none',
                 display: { xs: 'block', sm:'none'},
                 '& .MuiDrawer-paper': { width: '70%'}
             }}

@@ -22,7 +22,7 @@ const Header = () => {
 
     return(
         <>
-            <AppBar component="nav" position="relative">
+            <AppBar component="nav" position="relative" sx={{displayPrint:'none'}}>
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -48,17 +48,17 @@ const Header = () => {
                         <Link href="/pedidos" style={{ textDecoration:'none'}}>
                             <Button sx={{ color:'#fff'}}>Pedidos</Button>
                         </Link>
-                        <Link href="/pedidos" style={{ textDecoration:'none'}}>
+                        <Link href="/produtos" style={{ textDecoration:'none'}}>
                             <Button sx={{ color:'#fff'}}>Produtos</Button>
                         </Link>
-                        <Link href="/pedidos" style={{ textDecoration:'none'}}>
+                        <Link href="/categorias" style={{ textDecoration:'none'}}>
                             <Button sx={{ color:'#fff'}}>Categorias</Button>
                         </Link>
                         <Button sx={{ color:'#fff'}} onClick={handleLogout}>Sair</Button>
                     </Box>
                 </Toolbar>
             </AppBar>
-            <Box component="nav">
+            <Box component="nav" sx={{displayPrint:'none'}}>
                 <HeaderDrawer
                     open={drawerOpen}
                     onClose={handleDrawerToggle}

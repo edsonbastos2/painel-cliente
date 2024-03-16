@@ -6,9 +6,10 @@ import { Box, Button, MenuItem, Select, SelectChangeEvent, Typography } from "@m
 type Props = {
     item:Order
     onChangeStatus: (id:number, status: OrderStatus) => void
+    onPrint: (order: Order) => void
 }
 
-export const OrderItem = ({ item, onChangeStatus }:Props) => {
+export const OrderItem = ({ item, onChangeStatus, onPrint }:Props) => {
 
     const getStackUtilityClass = (status:OrderStatus) => {
         const typeStatus = {
@@ -22,6 +23,10 @@ export const OrderItem = ({ item, onChangeStatus }:Props) => {
 
     const handleStatuschange = (event: SelectChangeEvent) => {
         onChangeStatus(item.id, event.target.value as OrderStatus)
+    }
+
+    const handlePrint = () => {
+        onPrint(item)
     }
 
     return(
@@ -42,7 +47,7 @@ export const OrderItem = ({ item, onChangeStatus }:Props) => {
                 <Box>
                     <Typography component='p'>{dateformat(item.orderDate)}</Typography>
                     <Typography component='p'>{item.userName}</Typography>
-                    <Button size='small' sx={{ color:'#fff', p:0, mt:2}}>Imprimir</Button>
+                    <Button onClick={handlePrint} size='small' sx={{ color:'#fff', p:0, mt:2}}>Imprimir</Button>
                 </Box>
                 <Box>
                     <Typography>#{item.id}</Typography>

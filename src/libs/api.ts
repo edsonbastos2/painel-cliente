@@ -1,10 +1,11 @@
+import { Category } from "@/types/Category"
 import { Order } from "@/types/Order"
 import { OrderStatus } from "@/types/OrderStatus"
 import { Product } from "@/types/Product"
 
 const tempProduct = {
     id: 888,
-    image: '',
+    image: 'https://imgs.search.brave.com/CAzYKIQGiO3oIcf1hR-VJqrurCbheqfGaDkHj12I6h0/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9jbXMt/Y2RuLnNhaXBvcy5j/b20vYXNzZXRzLzIw/MjIvMDcvMjAvVGlw/b3MtZGUtaGFtYnVy/Z3Vlci1TQUlQT1Mt/c2lzdGVtYS1wYXJh/LXJlc3RhdXJhbnRl/cy0xLTFfdWlkXzYy/ZDgwNmFlYjVmMzku/anBn',
     category:{
         id:77,
         name:'Burgers'
@@ -113,5 +114,38 @@ export const api = {
 
     changeOrderstatus: async(id:number, status: OrderStatus) => {
         return true
+    },
+
+    getCategories: async():Promise<Category[]> => {
+        const list = [
+            {id:333, name:'Burges'},
+            {id:444, name:'Bebidas'},
+            {id:322, name:'Sobremesa'},
+        ] as Category[]
+
+        return new Promise( resolve => {
+            setTimeout(() => {
+                resolve(list)
+            }, 200)
+        })
+    },
+
+    getProducts: async():Promise<Product[]> => {
+        const list = [
+            {...tempProduct, id:123},
+            {...tempProduct, id:125},
+            {...tempProduct, id:155},
+            {...tempProduct, id:432},
+            {...tempProduct, id:657},
+            {...tempProduct, id:453},
+            {...tempProduct, id:122},
+            {...tempProduct, id:111},
+        ] as Product[]
+
+        return new Promise( resolve => {
+            setTimeout(() => {
+                resolve(list)
+            }, 500)
+        })
     }
 }
