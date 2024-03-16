@@ -118,9 +118,9 @@ export const api = {
 
     getCategories: async():Promise<Category[]> => {
         const list = [
-            {id:333, name:'Burges'},
-            {id:444, name:'Bebidas'},
-            {id:322, name:'Sobremesa'},
+            {id:77, name:'Burges'},
+            {id:78, name:'Bebidas'},
+            {id:79, name:'Sobremesa'},
         ] as Category[]
 
         return new Promise( resolve => {
@@ -132,14 +132,14 @@ export const api = {
 
     getProducts: async():Promise<Product[]> => {
         const list = [
-            {...tempProduct, id:123},
-            {...tempProduct, id:125},
-            {...tempProduct, id:155},
-            {...tempProduct, id:432},
-            {...tempProduct, id:657},
-            {...tempProduct, id:453},
-            {...tempProduct, id:122},
-            {...tempProduct, id:111},
+            {...tempProduct, id:123, category:{id:44, name:'Burges'}},
+            {...tempProduct, id:125, category:{id:45, name:'Pizaa'}},
+            {...tempProduct, id:155, category:{id:46, name:'Bebidas'}},
+            {...tempProduct, id:432, category:{id:47, name:'Hot-dog'}},
+            {...tempProduct, id:657, category:{id:48, name:'Pão'}},
+            {...tempProduct, id:453, category:{id:49, name:'Molhos'}},
+            {...tempProduct, id:122, category:{id:50, name:'Burges'}},
+            {...tempProduct, id:111, category:{id:51, name:'Burges'}},
         ] as Product[]
 
         return new Promise( resolve => {
@@ -147,5 +147,13 @@ export const api = {
                 resolve(list)
             }, 500)
         })
-    }
+    },
+
+    deleteProduct: (id: number):Promise<boolean> => {
+        return new Promise( resolve => {
+            setTimeout(() => {
+                resolve(true)
+            }, 1000)
+        })
+    }   
 }
