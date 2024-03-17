@@ -16,8 +16,9 @@ type Props = {
 
 export const ProductEditDialog = ({ open, onClose, product, categories, onSave, disabled}:Props) => {
 
-    const handleformsubmit = (event: FormEvent<HTMLElement>) => {
+    const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
+        onSave(event)
     }
 
     return(
@@ -38,7 +39,7 @@ export const ProductEditDialog = ({ open, onClose, product, categories, onSave, 
                 </IconButton>
             </Box>
             <DialogContent>
-                <Box component='form' onSubmit={handleformsubmit} encType='multipart/form-data'>
+                <Box component='form' onSubmit={handleFormSubmit} encType='multipart/form-data'>
                     <Box sx={{mb:2}}>
                         <InputLabel variant="standard" htmlFor="imgField">Imagem</InputLabel>
                         <Input
@@ -81,7 +82,7 @@ export const ProductEditDialog = ({ open, onClose, product, categories, onSave, 
                             id="categoriesField"
                             variant="standard"
                             name="category"
-                            defaultValue={product?.category.id || categories[1]?.id}
+                            defaultValue={product?.category.id}
                             required
                             fullWidth
                             disabled={disabled}
@@ -105,9 +106,9 @@ export const ProductEditDialog = ({ open, onClose, product, categories, onSave, 
                         disabled={disabled}
                         />
                     </Box>
-                    <Box sx={{display:'flex', justifyContent:'flex-end'}}>
-                        <Button disabled={disabled} onClick={onClose}>Cancela</Button>
-                        <Button disabled={disabled} type="submit">Salvar</Button>
+                    <Box sx={{display:'flex', justifyContent:'flex-end', gap:2}}>
+                        <Button disabled={disabled} variant="outlined" color="error" onClick={onClose}>Cancela</Button>
+                        <Button disabled={disabled} variant="outlined" type="submit">Salvar</Button>
                     </Box>
                 </Box>
             </DialogContent>

@@ -73,7 +73,22 @@ const Page = () => {
         seteditDialogOpen(true)
     }
 
-    const handleSaveProductDialog = () => {}
+    const handleSaveProductDialog = async (event:FormEvent<HTMLFormElement>) => {
+        let form  = new FormData(event.currentTarget)
+        setLoadinEditDialog(true)
+
+        if(productToEdit) {
+            form.append('id', productToEdit.id.toString())
+            await api.updateProduct(form)
+        } else {
+            await api.createProduct(form)
+        }
+
+        setLoadinEditDialog(false)
+        seteditDialogOpen(false)
+
+        getProducts()
+    }
 
     return(
         <>

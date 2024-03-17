@@ -8,7 +8,7 @@ const tempProduct = {
     image: 'https://imgs.search.brave.com/CAzYKIQGiO3oIcf1hR-VJqrurCbheqfGaDkHj12I6h0/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9jbXMt/Y2RuLnNhaXBvcy5j/b20vYXNzZXRzLzIw/MjIvMDcvMjAvVGlw/b3MtZGUtaGFtYnVy/Z3Vlci1TQUlQT1Mt/c2lzdGVtYS1wYXJh/LXJlc3RhdXJhbnRl/cy0xLTFfdWlkXzYy/ZDgwNmFlYjVmMzku/anBn',
     category:{
         id:77,
-        name:'Burgers'
+        name:'Burges'
     },
     name:'Muito Louco',
     price:24.56,
@@ -132,14 +132,14 @@ export const api = {
 
     getProducts: async():Promise<Product[]> => {
         const list = [
-            {...tempProduct, id:123, category:{id:44, name:'Burges'}},
-            {...tempProduct, id:125, category:{id:45, name:'Pizaa'}},
-            {...tempProduct, id:155, category:{id:46, name:'Bebidas'}},
-            {...tempProduct, id:432, category:{id:47, name:'Hot-dog'}},
-            {...tempProduct, id:657, category:{id:48, name:'Pão'}},
-            {...tempProduct, id:453, category:{id:49, name:'Molhos'}},
-            {...tempProduct, id:122, category:{id:50, name:'Burges'}},
-            {...tempProduct, id:111, category:{id:51, name:'Burges'}},
+            {...tempProduct, id:123},
+            {...tempProduct, id:125},
+            {...tempProduct, id:155},
+            {...tempProduct, id:432},
+            {...tempProduct, id:657},
+            {...tempProduct, id:453},
+            {...tempProduct, id:122},
+            {...tempProduct, id:111},
         ] as Product[]
 
         return new Promise( resolve => {
@@ -155,5 +155,19 @@ export const api = {
                 resolve(true)
             }, 1000)
         })
-    }   
+    },
+    createProduct: (form:FormData) => {
+        return new Promise( resolve => {
+            setTimeout(() => {
+                resolve(true)
+            }, 1000)
+        })
+    },
+    updateProduct: (form:FormData) => {
+        return new Promise( resolve => {
+            setTimeout(() => {
+                resolve(true)
+            }, 1000)
+        })
+    }
 }
