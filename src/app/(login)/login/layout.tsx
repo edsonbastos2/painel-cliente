@@ -4,6 +4,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { Box, Container, Typography } from '@mui/material';
+import { AuthProvider } from '@/contexts/AuthContext'
 
 
 type Props = {
@@ -24,7 +25,9 @@ const Layout = ({ children }:Props) => {
                     }}>
                         <Typography component="h2" variant='h2'>Sistema Delivered</Typography>
                         <Typography component="h5" variant='h5'>Painel do Estabelecimento</Typography>
-                        { children }
+                        <AuthProvider>
+                            { children }
+                        </AuthProvider>
                     </Box>
                 </Container>
             </body>

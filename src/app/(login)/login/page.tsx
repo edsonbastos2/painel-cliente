@@ -4,6 +4,8 @@ import { api } from "@/libs/api"
 import { Alert, Box, Button, Link as MuiLink, TextField, Typography } from "@mui/material"
 import Link from "next/link"
 import { FormEvent, useState } from "react"
+import { AuthContext } from '@/contexts/AuthContext'
+import { useContext } from 'react'
 
 const Page = () => {
 
@@ -11,6 +13,8 @@ const Page = () => {
     const [loading, setLoading] = useState(false)
     const [emailField, setEmailField] = useState('')
     const [passwordField, setPasswordField] = useState('')
+
+    const { signIn } = useContext(AuthContext)
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -22,11 +26,12 @@ const Page = () => {
 
         setError('')
         setLoading(true)
-        const result = await api.login(emailField, passwordField)
+        // const result = await api.login(emailField, passwordField)
+        const result = await signIn({email: emailField, password: passwordField})
         setLoading(false)
-        if(result.error) {
-            setError(result.error)
-        }
+        // if(result.error) {
+        //     setError(result.error)
+        // }
     }
 
     return(
