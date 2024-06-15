@@ -23,7 +23,7 @@ const Layout = ({ children }:Props) => {
                         flexDirection: 'column',
                         alignItems: 'center'
                     }}>
-                        <Typography component="h2" variant='h2'>Sistema Delivered</Typography>
+                        <Typography component="h2" variant='h2'>Sistema UfoDelivery</Typography>
                         <Typography component="h5" variant='h5'>Painel do Estabelecimento</Typography>
                         <AuthProvider>
                             { children }

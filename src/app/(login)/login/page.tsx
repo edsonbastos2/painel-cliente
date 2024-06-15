@@ -6,6 +6,8 @@ import Link from "next/link"
 import { FormEvent, useState } from "react"
 import { AuthContext } from '@/contexts/AuthContext'
 import { useContext } from 'react'
+import { signIn } from 'next-auth/react'
+import { useRouter } from "next/navigation"
 
 const Page = () => {
 
@@ -14,7 +16,8 @@ const Page = () => {
     const [emailField, setEmailField] = useState('')
     const [passwordField, setPasswordField] = useState('')
 
-    const { signIn } = useContext(AuthContext)
+    const router = useRouter()
+
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -25,13 +28,22 @@ const Page = () => {
         }
 
         setError('')
+
         setLoading(true)
-        // const result = await api.login(emailField, passwordField)
-        const result = await signIn({email: emailField, password: passwordField})
+        const result = await signIn('credentials', {
+            email: emailField,
+            password: passwordField,
+            redirect: false
+        })
         setLoading(false)
-        // if(result.error) {
-        //     setError(result.error)
-        // }
+
+        if(result?.error) {
+            setError('Erro ao realizar login')
+            console.error(result.error)
+            return
+        }
+
+        router.replace('/pedidos')
     }
 
     return(

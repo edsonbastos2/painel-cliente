@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { HeaderDrawer } from "./HeaderDrawer"
 import { useState } from "react"
+import { signOut } from "next-auth/react"
 
 const Header = () => {
     const pagetitle = 'Painel Administrativo'
@@ -54,7 +55,7 @@ const Header = () => {
                         <Link href="/categorias" style={{ textDecoration:'none'}}>
                             <Button sx={{ color:'#fff'}}>Categorias</Button>
                         </Link>
-                        <Button sx={{ color:'#fff'}} onClick={handleLogout}>Sair</Button>
+                        <Button sx={{ color:'#fff'}} onClick={() => signOut()}>Sair</Button>
                     </Box>
                 </Toolbar>
             </AppBar>
